@@ -1,0 +1,15 @@
+{
+    "architecture": "all",
+    "description": "description of shortee",
+    "framework": "ubuntu-sdk-14.04-dev1",
+    "hooks": {
+        "app": {
+            "apparmor": "app.json",
+            "desktop": "app.desktop"
+        }
+    },
+    "maintainer": "Wes Mason <wesley.mason@canonical.com>",
+    "name": "com.ubuntu.developer.wesmason.shortee",
+    "title": "shortee",
+    "version": "0.1"
+}
