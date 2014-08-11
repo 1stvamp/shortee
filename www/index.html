@@ -31,13 +31,18 @@
       <header data-role="header">
         <ul data-role="tabs">
           <li data-role="tabitem" data-page="main-page">Counter of Doom</li>
+          <li data-role="tabitem" data-page="new-game-page">New game</li>
         </ul>
       </header>
       <div data-role="content">
         <div data-role="tab" id="main-page">
-          <button data-role="button" id="start-game">Start game</button>
+          <button data-role="button" id="new-game">New game</button>
           <div data-role="list" id="res" />
         </div> <!-- tab: main-page -->
+        <div data-role="tab" id="new-game-page">
+          <button data-role="button" id="start-game">Start game</button>
+          <div data-role="list" id="res" />
+        </div> <!-- tab: new-game-page -->
       </div> <!-- content -->
     </div> <!-- mainview -->
   </body>
