@@ -6,7 +6,7 @@ window.onload = function () {
     UI.init();
 
     // Simple button listeners
-    UI.button('new-game').click(switchPage(UI, 'new-game-page'));
+    UI.button('new-game').click(getPageSwitcher(UI, 'new-game-page'));
 
     // Add an event listener that is pending on the initialization
     //  of the platform layer API, if it is being used.
@@ -16,7 +16,7 @@ window.onload = function () {
     }, false);
 };
 
-function switchPage(ui, pageId) {
+function getPageSwitcher(ui, pageId) {
     return function() {
 	ui.pagestack.push(pageId);
     };
