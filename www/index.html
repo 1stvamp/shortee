@@ -29,20 +29,18 @@
  <body>
     <div data-role="mainview">
       <header data-role="header">
-        <ul data-role="tabs">
-          <li data-role="tabitem" data-page="main-page">Counter of Doom</li>
-          <li data-role="tabitem" data-page="new-game-page">New game</li>
-        </ul>
+	<h1>Counter App of Doom</h1>
       </header>
       <div data-role="content">
-        <div data-role="tab" id="main-page">
-          <button data-role="button" id="new-game">New game</button>
-          <div data-role="list" id="res" />
-        </div> <!-- tab: main-page -->
-        <div data-role="tab" id="new-game-page">
-          <button data-role="button" id="start-game">Start game</button>
-          <div data-role="list" id="res" />
-        </div> <!-- tab: new-game-page -->
+	<div data-role="pagestack">
+	    <div data-role="page" id="main-page">
+		<button data-role="button" id="new-game">New game</button>
+	    </div> <!-- page: main-page -->
+	    <div data-role="page" id="new-game-page">
+		<h2>New game</h1>
+		<button data-role="button" id="start-game">Start game</button>
+	    </div> <!-- page: new-game-page -->
+	</div> <!-- pagestack -->
       </div> <!-- content -->
     </div> <!-- mainview -->
   </body>
