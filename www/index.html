@@ -14,10 +14,12 @@
     <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/core.js"></script>
     <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/buttons.js"></script>
     <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/dialogs.js"></script>
+    <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/popovers.js"></script>
+    <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/option-selector.js"></script>
     <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/page.js"></script>
     <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/pagestacks.js"></script>
-    <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/tab.js"></script>
-    <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/tabs.js"></script>
+    <!-- <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/tab.js"></script> -->
+    <!-- <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/tabs.js"></script> -->
 
     <!-- Cordova platform API access - Uncomment this to have access to the Javascript APIs -->
     <!-- <script src="cordova/cordova.js"></script> -->
@@ -34,25 +36,19 @@
       <div data-role="content">
 	<div data-role="pagestack">
 	    <div data-role="page" id="main-page">
-		<h2>Pick yer poison</h1>
-		<button data-role="button" id="new-game">New game</button>
+		<h2>Pick yer poison</h2>
+
+		<p>
+		    <button data-role="button" id="new-game">New game</button>
+		</p>
 	    </div> <!-- page: main-page -->
 	    <div data-role="page" id="new-game-page">
-		<h2>New game</h1>
+		<h2>Start a new  game</h2>
+
 		<section data-role="option-selector" id="game-type">
-		    <ul>
-			<li data-value="munchkin">
-			<p>Munchkin</p>
-			</li>
-			<li data-value="bites">
-			<p>Munchkin Bites</p>
-			</li>
-			<li data-value="other">
-			<p>Other</p>
-			</li>
-		    </ul>
+		    <ul id="game-type-list"></ul>
 		</section>
-		<button data-role="button" id="start-game">Start game</button>
+		<button data-role="button" id="start-game">Go!</button>
 	    </div> <!-- page: new-game-page -->
 	</div> <!-- pagestack -->
       </div> <!-- content -->
