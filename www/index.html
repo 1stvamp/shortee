@@ -13,8 +13,6 @@
     <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/fast-buttons.js"></script>
     <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/core.js"></script>
     <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/buttons.js"></script>
-    <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/dialogs.js"></script>
-    <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/popovers.js"></script>
     <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/option-selector.js"></script>
     <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/page.js"></script>
     <script src="/usr/share/ubuntu-html5-ui-toolkit/0.1/ambiance/js/pagestacks.js"></script>
@@ -44,9 +42,33 @@
 	    </div> <!-- page: main-page -->
 	    <div data-role="page" id="new-game-page">
 		<h2>Start a new  game</h2>
+		<p>Just pick what type of game you're playing, and how many players:</p>
 
 		<section data-role="option-selector" id="game-type">
 		    <ul id="game-type-list"></ul>
+		</section>
+
+		<section data-role="option-selector" id="players-num">
+		    <ul>
+			<li data-value="1">
+			    <p>1</p>
+			</li>
+			<li data-value="2">
+			    <p>2</p>
+			</li>
+			<li data-value="3">
+			    <p>3</p>
+			</li>
+			<li data-value="4">
+			    <p>4</p>
+			</li>
+			<li data-value="5">
+			    <p>5</p>
+			</li>
+			<li data-value="6">
+			    <p>6</p>
+			</li>
+		    </ul>
 		</section>
 		<button data-role="button" id="start-game">Go!</button>
 	    </div> <!-- page: new-game-page -->

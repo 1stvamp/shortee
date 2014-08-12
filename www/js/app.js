@@ -40,6 +40,7 @@ window.onload = function () {
 
     // Options
     var gameTypeOpt = UI.optionselector('game-type', false, false);
+    var playersNumOpt = UI.optionselector('players-num', false, false);
 
     UI.button('start-game').click(function() {});
 
