@@ -37,6 +37,7 @@ window.onload = function () {
 
     // Simple button listeners
     UI.button('new-game').click(getPageSwitcher(UI, 'new-game-page'));
+    UI.button('start-game').click(getPageSwitcher(UI, 'counter-page'));
 
     // Options
     var gameTypeOpt = UI.optionselector('game-type', false, false);
