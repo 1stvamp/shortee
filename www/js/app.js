@@ -8,16 +8,19 @@ window.onload = function () {
     var gameTypes = [
 	{
 	    name: 'Munchkin',
+	    minLevel: 1,
 	    maxLevel: 10,
 	    winAtMax: true
 	},
 	{
 	    name: 'Epic Munchkin',
+	    minLevel: 1,
 	    maxLevel: 20,
 	    winAtMax: true
 	},
 	{
 	    name: 'Munchkin Quest',
+	    minLevel: 1,
 	    maxLevel: 10,
 	    winAtMax: false
 	}
@@ -43,7 +46,57 @@ window.onload = function () {
     var gameTypeOpt = UI.optionselector('game-type', false, false);
     var playersNumOpt = UI.optionselector('players-num', false, false);
 
-    UI.button('start-game').click(function() {});
+    UI.button('start-game').click(function() {
+	var gameType = gameTypes[gameTypeOpt.currentIndex];
+	var playersNum = playersNumOpt.currentIndex + 2;
+	var countersEl = document.getElementById('counters');
+
+	// Clear the div contents each time
+	countersEl.innerHTML = '';
+
+	// Keep track of the numbers
+	var counters = {};
+
+	for(var i = 0; i < playersNum; i++) {
+	    var counterContainerEl = document.createElement('p');
+	    counterContainerEl.innerHTML = 'Player ' + (i + 1) + ': ';
+
+	    var counterEl = document.createElement('span');
+	    counterContainerEl.appendChild(counterEl);
+	    countersEl.appendChild(counterContainerEl);
+
+	    counters[i] = 1;
+	    counterEl.innerHTML = 1;
+
+	    var button1 = document.createElement('button');
+	    button1.innerHTML = '+';
+	    button1.setAttribute('data-role', 'button');
+	    button1.setAttribute('id', 'counter-' + i + '-up');
+	    counterContainerEl.appendChild(button1);
+	    UI.button('counter-' + i + '-up').click(function(el, i) {
+		return function() {
+		    if (counters[i] < gameType.maxLevel) {
+			counters[i]++;
+			el.innerHTML = counters[i];
+		    }
+		};
+	    }(counterEl, i));
+
+	    var button2 = document.createElement('button');
+	    button2.innerHTML = '-';
+	    button2.setAttribute('data-role', 'button');
+	    button2.setAttribute('id', 'counter-' + i + '-down');
+	    counterContainerEl.appendChild(button2);
+	    UI.button('counter-' + i + '-down').click(function(el, i) {
+		return function() {
+		    if (counters[i] > gameType.minLevel) {
+			counters[i]--;
+			el.innerHTML = counters[i];
+		    }
+		};
+	    }(counterEl, i));
+	}
+    });
 
     // Add an event listener that is pending on the initialization
     //  of the platform layer API, if it is being used.
