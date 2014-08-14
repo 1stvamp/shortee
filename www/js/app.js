@@ -79,6 +79,9 @@ window.onload = function () {
 			counters[i]++;
 			el.innerHTML = counters[i];
 		    }
+		    if (gameType.winAtMax && counters[i] >= gameType.maxLevel) {
+			hotdog(UI, i + 1);
+		    }
 		};
 	    }(counterEl, i));
 
@@ -110,4 +113,10 @@ function getPageSwitcher(ui, pageId) {
     return function() {
 	ui.pagestack.push(pageId);
     };
+}
+
+function hotdog(ui, player) { // we have a weiner
+    var winnerEl = document.getElementById('winning-player');
+    winnerEl.innerHTML = 'Player ' + player + ' is the winner!';
+    getPageSwitcher(ui, 'game-over-page')();
 }
