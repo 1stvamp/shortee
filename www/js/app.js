@@ -115,6 +115,13 @@ function getPageSwitcher(ui, pageId) {
     };
 }
 
+/*
+                              .-.
+ (___________________________()6 `-,
+ (   ______________________   /''"`
+ //\\                      //\\
+ "" ""                     "" ""
+*/
 function hotdog(ui, player) { // we have a weiner
     var winnerEl = document.getElementById('winning-player');
     winnerEl.innerHTML = 'Player ' + player + ' is the winner!';
