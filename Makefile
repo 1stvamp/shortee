@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := run
 
 run:
-	ubuntu-html5-app-launcher ${ARGS} --www=www
+	APP_ID=ubuntu-html5-app-launcher ubuntu-html5-app-launcher ${ARGS} --www=www
 
 .PHONY: run
