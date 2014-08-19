@@ -1,7 +1,38 @@
+// Is there a current implementation of IndexedDB?
+var requireShim = typeof window.IDBVersionChangeEvent === 'undefined';
+
+// Is WebSQL available?
+var supportsWebSql = typeof window.openDatabase != 'undefined';
+
+if (requireShim && supportsWebSql){
+    window.shimIndexedDB.__useShim(); // Use the Polyfills 
+}
+
 /**
  * Wait before the DOM has been loaded before initializing the Ubuntu UI layer
  */
 window.onload = function () {
+    var dbrequest = window.indexedDB.open("ShorteeDB", 2);
+    dbrequest.onupgradeneeded = function(event) {
+	var db = event.target.result;
+	db.createObjectStore("games", { keyPath: "id" });
+    }
+    dbrequest.onsuccess = function(event) {
+	var db = event.target.result;
+	var transaction = db.transaction(["games"], "read");
+	var objectStore = transaction.objectStore("games");
+	var request = objectStore.get("current");
+	request.onsuccess = function(event) {
+	    initUI(db, event.target.result || {});
+	};
+	request.onerror = function() {
+	    initUI(db, {});
+	};
+    };
+
+};
+
+function initUI(db, currentGame) {
     var UI = new UbuntuUI();
     UI.init();
 
@@ -57,6 +88,12 @@ window.onload = function () {
 	// Keep track of the numbers
 	var counters = {};
 
+	currentGame.gameType = gameType;
+	currentGame.playersNum = playersNum;
+	currentGame.counters = counters;
+	currentGame.over = false;
+	saveGame(db, currentGame);
+
 	for(var i = 0; i < playersNum; i++) {
 	    var counterContainerEl = document.createElement('p');
 	    counterContainerEl.innerHTML = 'Player ' + (i + 1) + ': ';
@@ -81,7 +118,9 @@ window.onload = function () {
 		    }
 		    if (gameType.winAtMax && counters[i] >= gameType.maxLevel) {
 			hotdog(UI, i + 1);
+			currentGame.over = true;
 		    }
+		    saveGame(db, currentGame);
 		};
 	    }(counterEl, i));
 
@@ -96,6 +135,7 @@ window.onload = function () {
 			counters[i]--;
 			el.innerHTML = counters[i];
 		    }
+		    saveGame(db, currentGame);
 		};
 	    }(counterEl, i));
 	}
@@ -104,14 +144,29 @@ window.onload = function () {
     // Add an event listener that is pending on the initialization
     //  of the platform layer API, if it is being used.
     document.addEventListener("deviceready", function() {
-        if (console && console.log)
+        if (console && console.log) {
             console.log('Platform layer API ready');
+	}
     }, false);
-};
+}
 
 function getPageSwitcher(ui, pageId) {
     return function() {
 	ui.pagestack.push(pageId);
+    };
+}
+
+function saveGame(db, game) {
+    // We always set this as we only ever have one game
+    game.id = "current";
+    var transaction = db.transaction(["games"], "write");
+    var objectStore = transaction.objectStore("games");
+    var request = objectStore.put(game);
+    request.onerror = function(event) {
+        if (console && console.log) {
+            console.log('Failed to save current game');
+	    console.log(event);
+	}
     };
 }
 
