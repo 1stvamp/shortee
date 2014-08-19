@@ -1,15 +1,15 @@
 {
     "architecture": "all",
     "description": "A level counter for Munchkin-like games",
-    "framework": "ubuntu-sdk-14.04",
+    "framework": "ubuntu-sdk-14.10-html-dev2",
     "hooks": {
         "app": {
             "apparmor": "app.json",
             "desktop": "app.desktop"
         }
     },
-    "maintainer": "Wes Mason <wesley.mason@canonical.com>",
-    "name": "com.ubuntu.developer.wesmason.shortee",
+    "maintainer": "Wes Mason <wes@1stvamp.org>",
+    "name": "org.1stvamp.shortee",
     "title": "Shortee",
     "version": "1.0.0"
 }

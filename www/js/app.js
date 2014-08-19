@@ -1,38 +1,17 @@
-// Is there a current implementation of IndexedDB?
-var requireShim = typeof window.IDBVersionChangeEvent === 'undefined';
-
-// Is WebSQL available?
-var supportsWebSql = typeof window.openDatabase != 'undefined';
-
-if (requireShim && supportsWebSql){
-    window.shimIndexedDB.__useShim(); // Use the Polyfills 
-}
-
 /**
  * Wait before the DOM has been loaded before initializing the Ubuntu UI layer
  */
 window.onload = function () {
-    var dbrequest = window.indexedDB.open("ShorteeDB", 2);
-    dbrequest.onupgradeneeded = function(event) {
-	var db = event.target.result;
-	db.createObjectStore("games", { keyPath: "id" });
+    var currentGame = localStorage.getItem("currentGame");
+    if (currentGame) {
+        currentGame = JSON.parse(currentGame);
+    } else {
+        currentGame = {};
     }
-    dbrequest.onsuccess = function(event) {
-	var db = event.target.result;
-	var transaction = db.transaction(["games"], "read");
-	var objectStore = transaction.objectStore("games");
-	var request = objectStore.get("current");
-	request.onsuccess = function(event) {
-	    initUI(db, event.target.result || {});
-	};
-	request.onerror = function() {
-	    initUI(db, {});
-	};
-    };
-
+    initUI(currentGame);
 };
 
-function initUI(db, currentGame) {
+function initUI(currentGame) {
     var UI = new UbuntuUI();
     UI.init();
 
@@ -92,7 +71,7 @@ function initUI(db, currentGame) {
 	currentGame.playersNum = playersNum;
 	currentGame.counters = counters;
 	currentGame.over = false;
-	saveGame(db, currentGame);
+    saveGame(currentGame);
 
 	for(var i = 0; i < playersNum; i++) {
 	    var counterContainerEl = document.createElement('p');
@@ -120,7 +99,7 @@ function initUI(db, currentGame) {
 			hotdog(UI, i + 1);
 			currentGame.over = true;
 		    }
-		    saveGame(db, currentGame);
+            saveGame(currentGame);
 		};
 	    }(counterEl, i));
 
@@ -135,7 +114,7 @@ function initUI(db, currentGame) {
 			counters[i]--;
 			el.innerHTML = counters[i];
 		    }
-		    saveGame(db, currentGame);
+            saveGame(currentGame);
 		};
 	    }(counterEl, i));
 	}
@@ -156,18 +135,8 @@ function getPageSwitcher(ui, pageId) {
     };
 }
 
-function saveGame(db, game) {
-    // We always set this as we only ever have one game
-    game.id = "current";
-    var transaction = db.transaction(["games"], "write");
-    var objectStore = transaction.objectStore("games");
-    var request = objectStore.put(game);
-    request.onerror = function(event) {
-        if (console && console.log) {
-            console.log('Failed to save current game');
-	    console.log(event);
-	}
-    };
+function saveGame(game) {
+    localStorage.setItem("currentGame", JSON.stringify(game));
 }
 
 /*
