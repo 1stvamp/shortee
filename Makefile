@@ -1,3 +1,4 @@
+VERSION := $(shell python3 -c 'import json; print(json.load(open("manifest.json"))["version"])')
 .DEFAULT_GOAL := run
 
 run:
@@ -6,4 +7,7 @@ run:
 dev: ARGS = --inspector
 dev: run
 
-.PHONY: run dev
+tar:
+	tar czf ../shortee-${VERSION}.tar.gz .
+
+.PHONY: run dev tar
