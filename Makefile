@@ -11,7 +11,7 @@ tar:
 	tar czf ../shortee-${VERSION}.tar.gz .
 
 help:
-	@$(MAKE) -qp --question no-such-target 2>/dev/null | \
+	@$(MAKE) -pn --question no-such-target 2>/dev/null | \
 		awk -F':' '/^[a-zA-Z0-9][^$$#\/\t=]*:([^=]|$$)/ \
 		{split($$1,A,/ /);for(i in A)print A[i]}' | \
 			tail -n+3
