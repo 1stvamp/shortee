@@ -1,3 +1,4 @@
+CLICK := /usr/bin/click
 VERSION := $(shell python3 -c 'import json; print(json.load(open("manifest.json"))["version"])')
 .DEFAULT_GOAL := help
 
@@ -9,6 +10,9 @@ dev: run
 
 tar:
 	tar czf ../shortee-${VERSION}.tar.gz .
+
+build:
+	cd && $(CLICK) build ${PWD}
 
 help:
 	@$(MAKE) -pn --question no-such-target 2>/dev/null | \
