@@ -1,0 +1,24 @@
+#counters p
+{
+    margin-top: 4ex;
+    text-align: center;
+    padding-left: 30%;
+    padding-right: 30%;
+}
+
+.clear
+{
+    clear: both;
+}
+
+.right-button
+{
+    float: right;
+    width: 4em;
+}
+
+.left-button
+{
+    float: left;
+    width: 4em;
+}

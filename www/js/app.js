@@ -71,7 +71,7 @@ function initUI(currentGame) {
 	currentGame.playersNum = playersNum;
 	currentGame.counters = counters;
 	currentGame.over = false;
-    saveGame(currentGame);
+	saveGame(currentGame);
 
 	for(var i = 0; i < playersNum; i++) {
 	    var counterContainerEl = document.createElement('p');
@@ -88,6 +88,7 @@ function initUI(currentGame) {
 	    button1.innerHTML = '+';
 	    button1.setAttribute('data-role', 'button');
 	    button1.setAttribute('id', 'counter-' + i + '-up');
+	    button1.setAttribute('class', 'right-button');
 	    counterContainerEl.appendChild(button1);
 	    UI.button('counter-' + i + '-up').click(function(el, i) {
 		return function() {
@@ -107,14 +108,20 @@ function initUI(currentGame) {
 	    button2.innerHTML = '-';
 	    button2.setAttribute('data-role', 'button');
 	    button2.setAttribute('id', 'counter-' + i + '-down');
+	    button2.setAttribute('class', 'left-button');
 	    counterContainerEl.appendChild(button2);
+
+	    var clearEl = document.createElement('div');
+	    clearEl.setAttribute('class', 'clear');
+	    counterContainerEl.appendChild(clearEl);
+
 	    UI.button('counter-' + i + '-down').click(function(el, i) {
 		return function() {
 		    if (counters[i] > gameType.minLevel) {
 			counters[i]--;
 			el.innerHTML = counters[i];
 		    }
-            saveGame(currentGame);
+		    saveGame(currentGame);
 		};
 	    }(counterEl, i));
 	}
